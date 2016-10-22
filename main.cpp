@@ -3,6 +3,6 @@ using namespace std;
 
 int main()
 {
-    cout << "yasuck" << endl;
+    cout << "Ruifeng sucks" << endl;
     return 0;
 }
