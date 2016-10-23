@@ -21,7 +21,7 @@ var questions = [
         "Reindeer have very thick coats, how many hairs per square inch do they have?": [
             "13,000",
             "1,200",
-            "5,000",
+            "5,000", //
             "700",
             "1,000",
             "120,000"
@@ -271,7 +271,7 @@ function populateGameQuestionsTest() {
     }
 
     // Pick GAME_LENGTH random questions from the list to ask the user, make sure there are no repeats.
-    for (var j = 0; j < GAME_LENGTH; j++){
+    for (var j = 0; j < questions.length; j++){
         var rand = Math.floor(Math.random() * index);
         index -= 1;
 
