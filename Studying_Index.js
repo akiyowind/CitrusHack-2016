@@ -195,6 +195,7 @@ function onSessionEnded(sessionEndedRequest, session) {
 var ANSWER_COUNT = 4;
 var GAME_LENGTH = 5;
 var CARD_TITLE = "Trivia"; // Be sure to change this for your skill.
+var isDefault = true;
 
 function getWelcomeResponse(callback) {
     var sessionAttributes = {},
@@ -261,6 +262,7 @@ function populateGameQuestionsTest() {
     var gameQuestions = [];
     var indexList = [];
     var index = questions.length;
+    isDefault = false;
 
     if (GAME_LENGTH > index){
         throw "Invalid Game Length.";
@@ -393,7 +395,7 @@ function handleAnswerRequest(intent, session, callback) {
             speechOutputAnalysis += "The correct answer is " + correctAnswerIndex + ": " + correctAnswerText + ". ";
         }
         // if currentQuestionIndex is 4, we've reached 5 questions (zero-indexed) and can exit the game session
-        if (currentQuestionIndex == GAME_LENGTH - 1) {
+        if ((currentQuestionIndex == GAME_LENGTH - 1 && isDefault) || (currentQuestionIndex == questions.length && !isDefault)) {
             speechOutput = userGaveUp ? "" : "That answer is ";
             speechOutput += speechOutputAnalysis + "You got " + currentScore.toString() + " out of "
                 + GAME_LENGTH.toString() + " questions correct. Thank you for playing!";
