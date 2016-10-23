@@ -1,3 +1,5 @@
+//Adrian Tran, Braeton Buckley, and Ruifeng Zhang with Amazon Alexa
+
 'use strict';
 
 /**
