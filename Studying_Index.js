@@ -70,6 +70,50 @@ var questions = [
       }
 ]
 
+var leagueQuestions = [
+    {
+        "My Ryze is bad, my Azir is worse. You guessed it right. I'm G2 ": [
+            "Perkz",
+            "eSports",
+            "A (as in G2A)", //
+            ", which means Gold 2",
+            "chow fan",
+        ]
+    },
+    {
+      "Which of the following is a Sneaky meme?": [
+        "Same",
+        "Look at the booty, show me the booty. Give me the booty, I want the booty",
+        "The frog meme",
+        "Harambeyblades",
+      ]
+    },
+    {
+       "Which player mid lane player was widely considered the most skilled Orianna in Season 2?": [
+         "Faker",
+         "Reginald",
+         "Toyz",
+         "Weixiao"
+       ]
+    },
+    {
+      "Which of the following streamers said this: Doot Diddly Donger Cuck-erino": [
+        "Rush",
+        "Imaqtpie",
+        "Doublelift",
+        "Kaceytron"
+      ]
+    },
+    {
+      "What Korean team was first to win a World Championship?": [
+        "SK Telecom T1 K",
+        "SK Telecom T1",
+        "Samsung White",
+        "KT Arrows"
+      ]
+    }
+]
+
 // Route the incoming request based on type (LaunchRequest, IntentRequest,
 // etc.) The JSON body of the request is provided in the event parameter.
 exports.handler = function (event, context) {
@@ -93,6 +137,7 @@ exports.handler = function (event, context) {
             onLaunch(event.request,
                 event.session,
                 function callback(sessionAttributes, speechletResponse) {
+                  var SpeechOutput = "Would you like to choose a subject?"
                     context.succeed(buildResponse(sessionAttributes, speechletResponse));
                 });
         } else if (event.request.type === "IntentRequest") {
@@ -397,8 +442,15 @@ function handleAnswerRequest(intent, session, callback) {
         // if currentQuestionIndex is 4, we've reached 5 questions (zero-indexed) and can exit the game session
         if ((IS_DEFAULT && currentQuestionIndex == GAME_LENGTH - 1) || (!(IS_DEFAULT) && currentQuestionIndex == questions.length - 1)) {
             speechOutput = userGaveUp ? "" : "That answer is ";
+            if (IS_DEFAULT && currentQuestionIndex == GAME_LENGTH -1)
+            {
             speechOutput += speechOutputAnalysis + "You got " + currentScore.toString() + " out of "
                 + GAME_LENGTH.toString() + " questions correct. Thank you for playing!";
+            }
+            else {
+              speechOutput += speechOutputAnalysis + "You got " + currentScore.toString() + " out of "
+                  + questions.length.toString() + " questions correct. Thank you for playing!";
+            }
             callback(session.attributes,
                 buildSpeechletResponse(CARD_TITLE, speechOutput, "", true));
         } else {
