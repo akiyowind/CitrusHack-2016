@@ -14,7 +14,7 @@ exports.handler = (event, context) => {
                 console.log(`LAUNCH REQUEST`)
                 context.succeed(
                     generateResponse(
-                        buildSpeechletResponse("Welcome to the OPGG skill", true),
+                        buildSpeechletResponse("Welcome to the OPGG skill, thats a dank job you did there", true),
                         {}
                     )
                 )
@@ -37,7 +37,7 @@ exports.handler = (event, context) => {
     } catch(error) { context.fail(`Exception: ${error}`)}
 
     //callback(null, 'Hello from Lambda');
-};
+}
 
 //helpers
 buildSpeechletResponse = (outputText, shouldEndSession) => {
@@ -52,7 +52,7 @@ buildSpeechletResponse = (outputText, shouldEndSession) => {
 
 }
 
-generateResponse = (sessionAttributes, speechletResponse) => {
+generateResponse = (speechletResponse, sessionAttributes) => {
 
     return {
         version: "1.0",
@@ -60,4 +60,4 @@ generateResponse = (sessionAttributes, speechletResponse) => {
         response: speechletResponse
     }
 
-}
+};
