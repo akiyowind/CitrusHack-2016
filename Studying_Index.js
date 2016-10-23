@@ -137,7 +137,6 @@ exports.handler = function (event, context) {
             onLaunch(event.request,
                 event.session,
                 function callback(sessionAttributes, speechletResponse) {
-                  var SpeechOutput = "Would you like to choose a subject?"
                     context.succeed(buildResponse(sessionAttributes, speechletResponse));
                 });
         } else if (event.request.type === "IntentRequest") {
