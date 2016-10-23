@@ -325,7 +325,7 @@ function handleTestIntent(intent, session, callback)
           + " questions. Try to get as many right as you can. Just say the number of the answer. Let's begin. ",
       shouldEndSession = false,
 
-      gameQuestions = populateGameQuestions(),
+      gameQuestions = populateGameQuestionsTest(),
       correctAnswerIndex = Math.floor(Math.random() * (ANSWER_COUNT)), // Generate a random index for the correct answer, from 0 to 3
       roundAnswers = populateRoundAnswers(gameQuestions, 0, correctAnswerIndex),
 
