@@ -1,0 +1,54 @@
+AnswerIntent the answer is {Answer}
+AnswerIntent my answer is {Answer}
+AnswerIntent is it {Answer}
+AnswerIntent {Answer} is my answer
+AnswerOnlyIntent {Answer}
+
+AMAZON.StartOverIntent start game
+AMAZON.StartOverIntent new game
+AMAZON.StartOverIntent start
+AMAZON.StartOverIntent start new game
+AMAZON.StartOverIntent start random game
+AMAZON.StartOverIntent answer five random questions
+AMAZON.StartOverIntent five random questions
+
+HelpIntent what do i do
+HelpIntent how do i play this
+HelpIntent what am i supposed to do
+HelpIntent what do I say
+HelpIntent help me man
+HelpIntent gimme the deets
+HelpIntent spill the beans
+HelpIntent spill the beans bro
+HelpIntent give me the cabbage
+
+DontKnowIntent i don't know
+DontKnowIntent don't know
+DontKnowIntent skip
+DontKnowIntent i don't know that
+DontKnowIntent who knows
+DontKnowIntent i don't know this question
+DontKnowIntent i don't know that one
+DontKnowIntent dunno
+
+ChangeSubjectIntent I want to study the subject of {Subject}
+ChangeSubjectIntent quiz me on {Subject}
+ChangeSubjectIntent quiz me on the subject of {Subject}
+ChangeSubjectIntent quiz {Subject}
+ChangeSubjectIntent gimme that booty {Subject}
+
+TestIntent take a test
+TestIntent test
+TestIntent test me
+TestIntent ask all questions
+TestIntent I want another midterm
+TestIntent another midterm
+TestIntent answer all questions
+
+StateSubjectIntent what are all of the subjects
+StateSubjectIntent what subjects are there
+StateSubjectIntent what subjects can I choose from
+StateSubjectIntent what are the subjects
+StateSubjectIntent list all of the subjects please
+StateSubjectIntent list all subjects
+StateSubjectIntent list all subjects please

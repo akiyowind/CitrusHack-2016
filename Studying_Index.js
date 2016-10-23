@@ -1,42 +1,37 @@
-/**
- Copyright 2014-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
- Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with the License. A copy of the License is located at
- http://aws.amazon.com/apache2.0/
- or in the "license" file accompanying this file. This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
- */
-
-/**
- * This sample shows how to create a simple Trivia skill with a multiple choice format. The skill
- * supports 1 player at a time, and does not support games across sessions.
- */
-
 'use strict';
 
 /**
  * When editing your questions pay attention to your punctuation. Make sure you use question marks or periods.
  * Make sure the first answer is the correct one. Set at least 4 answers, any extras will be shuffled in.
  */
+var correctAppending = [
+    "Oh wow!! Dooot diddly donger cucklerino!!    ",
+    "Sweet mother of pearl! Ahoy there, matey!    ",
+    "Yeeeeeeeeeeee haaaaaaawwwwww!!! Now that's what I call a rodeo, cowboy",
+    "Wow! You are a beast! Hooooooly moooooly!!   ",
+    "Nice job!    ",
+    "You seem to be pretty smart. Maybe you can give me a call sometime. I'm always available     ",
+    "I can't believe you got that question right! Are you cheating?   ",
+    "Which is exactly what JOHN CENA doooooo doooooooo doooooooooo dooooo said at the WWE Smackdown Friday night. Watch him as he battles next Thursday in the most exciting match of the year!   ",
+    "I'm beginning to think that you took a look at my source code. It's not pretty, huh?   "
+]
+
+var incorrectAppending = [
+    "Wow, you really did get tired from that orange gig, didn't ya?  ",
+    "Oh my goodness. You'll still be hearing me laugh at that answer when I'm in my Echo box    ",
+    "BWAHAHAHAHAHAH! MWAHAHUHUHUUHOOALAL    ",
+    "Blech blugh aghhh blech blech blung I am barfing right now   ",
+    "Hahahahaha   ",
+    "I can't believe you actually thought it was that answer. An oddly shaped oversized thimble is smarter than you.    ",
+    "Bahahahahhaah AHAHAHAHAH TEEEHEHEHEH OHOHOHOHHOHOHOHOHOHOHOHO Merry Christmas!!!   ",
+    "Maybe you should try a different subject.    ",
+    "README: Remember to add an insulting remark here. Just kidding, I didn't forget. You are a noob haha   "
+]
+
+
 var questions = [
     {
-        "Reindeer have very thick coats, how many hairs per square inch do they have?": [
-            "13,000",
-            "1,200",
-            "5,000", //
-            "700",
-            "1,000",
-            "120,000"
-        ]
-    },
-    {
-        "The 1964 classic Rudolph The Red Nosed Reindeer was filmed in:": [
-            "Japan",
-            "United States",
-            "Finland",
-            "Germany"
-        ]
-    },
-    {
-        "What is the dankest meme?": [
+        "What is the dankest meme?    ": [
             "Sneaky in lane",
             "ClearLUL",
             "H2 Korean teams in the finals",
@@ -44,35 +39,225 @@ var questions = [
       ]
     },
     {
-        "Which is the funniest joke?": [
-            "Stinky",
-            "Smelly",
-            "Skeletons",
-            "All of the jokes are funny"
-        ]
-    },
-    {
-        "Lol": [
-            "Lul",
-            "Lololololo",
-            "Wwwwwwwwww",
-            "Doooooody in my boooooty"
-        ]
-    },
-    {
-        "What is the first line of the song Booty Man?": [
+        "What is the first line of the song Booty Man?    ": [
+            "Look at that booty",
             "Gimme the booty",
             "Show me the booty",
             "Big booty",
             "Round booty",
             "Double round booty",
         ]
+      },
+      {
+          "My Ryze is bad, my Azir is worse. You guessed it right. I am G2      what?   ": [
+              "Perkz",
+              "eSports",
+              "A (as in G2A)", //
+              ", which means Gold 2",
+              "chow fan",
+          ]
+      },
+      {
+        "Which of the following is a meme popularized by C9 Sneaky?   ": [
+          "Same",
+          "Look at the booty, show me the booty. Give me the booty, I want the booty",
+          "The frog meme",
+          "Harambeyblades",
+        ]
+      },
+      {
+         "Which player mid lane player was widely considered the most skilled Orianna in Season 2?    ": [
+           "Faker",
+           "Reginald",
+           "Toyz",
+           "Weixiao"
+         ]
+      },
+      {
+        "Which of the following streamers said this: Doot Diddly Donger Cuck-erino    ": [
+          "I'm a cutie pie",
+          "Rush",
+          "Doublelift",
+          "Kaceytron"
+        ]
+      },
+      {
+        "What Korean team was first to win a World Championship?    ": [
+          "SK Telecom T1 K",
+          "SK Telecom T1",
+          "Samsung White",
+          "KT Arrows"
+        ]
+      },
+      {
+        "A 1998 study suggests that which of the following explorers reached the North Pole?    ": [
+          "Robert E. Peary",
+          "Ronald Amundsen",
+          "William Barents",
+          "Adam Sound",
+        ]
+      },
+      {
+        "History students are taught about the quote unquote fall of Constantiople in 1453. To who did it fall?   ": [
+          "Ottoman Turks",
+          "Christian crusaders",
+          "Mongol hordes",
+          "Romans",
+        ]
+      },
+      {
+        "Catherine the Great ruled what country?    ": [
+          "Russia",
+          "England",
+          "France",
+          "Germany"
+        ]
+      },
+      {
+        "What was the next state after the original 13 to be admitted to the United States?  ": [
+          "Vermont",
+          "Florida",
+          "West Virginia",
+          "Kentucky",
+        ]
+      },
+      {
+        "Which of these four wise men died before the other three were born?    ": [
+          "Solomon",
+          "Confucius",
+          "Plato",
+          "Jesus",
+        ]
+      },
+      {
+        "Which of the following vegetables is not one of the ingredients of V-8 Juice?    ":  [
+            "Cabbage",
+            "Beet",
+            "Carrot",
+            "Spinach",
+        ]
+      },
+      {
+          "What is the main ingredient of vichyssoise   ":  [
+              "Potatoes",
+              "Tomatoes",
+              "Clams",
+              "Lima beans",
+          ]
+      },
+      {
+        "What country produces the most potaotoes?    ":  [
+            "China",
+            "United States",
+            "Ireland",
+            "Russia",
+        ]
+      },
+      {
+        "What soft-drink company introduced the brand Slice?    ":  [
+            "Coca cola",
+            "Dr. Pepper",
+            "Seven Up",
+            "Pepsico",
+        ]
+      },
+      {
+        "According to a 1980's Beverage Media poll of four hundred bartenders, what is the average male customer's favorite drink?    ":  [
+            "Beer",
+            "Bourbon",
+            "Scotch",
+            "Tomato juice"
+        ]
+      },
+      {
+        "Who wrote the hit Spanish song Bailando?   ":  [
+          "Enrique Iglesias",
+          "Adrian Tran",
+          "Nicky Jam",
+          "Ruifeng quote unquote Ruifeng the Zhang Zhang"
+        ]
+      },
+      {
+        "What symphony's last movement includes a setting of Schiller's poem Hymn to Joy": [
+          "Beethoven's Ninth",
+          "Bruckner's Eighth",
+          "Mahler's Tenth",
+          "Mozart's 40th"
+        ]
+      },
+      {
+        "Which of the following is not a song made by the punk band Green day?    ":[
+          "Stop and Stare",
+          "Wake Me Up When September Ends",
+          "21 Guns",
+          "American Idiot"
+        ]
+      },
+      {
+        "Who composed the musical score for the animated movie Spirited Away?   ": [
+          "Joe Hisaishi",
+          "Hayao Miyazaki",
+          "Hans Zimmerman",
+          "Contigo Bailando"
+        ]
+      },
+      {
+        "Raffi is known for writing and singing what?   ":  [
+          "New Age Music",
+          "Children's songs",
+          "Rap music",
+          "Love ballads"
+        ]
       }
+]
+
+var foodQuestions = [
+  {
+    "Which of the following vegetables is not one of the ingredients of V-8 Juice?    ":  [
+        "Cabbage",
+        "Beet",
+        "Carrot",
+        "Spinach",
+    ]
+  },
+  {
+      "What is the main ingredient of vichyssoise   ":  [
+          "Potatoes",
+          "Tomatoes",
+          "Clams",
+          "Lima beans"
+      ]
+  },
+  {
+    "What country produces the most potaotoes?    ":  [
+        "China",
+        "United States",
+        "Ireland",
+        "Russia"
+    ]
+  },
+  {
+    "What soft-drink company introduced the brand Slice?    ":  [
+        "Coca cola",
+        "Dr. Pepper",
+        "Seven Up",
+        "Pepsico"
+    ]
+  },
+  {
+    "According to a 1980's Beverage Media poll of four hundred bartenders, what is the average male customer's favorite drink?    ":  [
+        "Beer",
+        "Bourbon",
+        "Scotch",
+        "Tomato juice"
+    ]
+  }
+
 ]
 
 var leagueQuestions = [
     {
-        "My Ryze is bad, my Azir is worse. You guessed it right. I'm G2 ": [
+        "My Ryze is bad, my Azir is worse. You guessed it right. I am G2      what?   ": [
             "Perkz",
             "eSports",
             "A (as in G2A)", //
@@ -81,7 +266,7 @@ var leagueQuestions = [
         ]
     },
     {
-      "Which of the following is a Sneaky meme?": [
+      "Which of the following is a meme popularized by C9 Sneaky?": [
         "Same",
         "Look at the booty, show me the booty. Give me the booty, I want the booty",
         "The frog meme",
@@ -89,29 +274,115 @@ var leagueQuestions = [
       ]
     },
     {
-       "Which player mid lane player was widely considered the most skilled Orianna in Season 2?": [
-         "Faker",
-         "Reginald",
+       "Which player mid lane player was widely considered the most skilled Orianna in Season 2?    ": [
          "Toyz",
+         "Reginald",
+         "Faker",
          "Weixiao"
        ]
     },
     {
-      "Which of the following streamers said this: Doot Diddly Donger Cuck-erino": [
+      "Which of the following streamers said this: Doot Diddly Donger Cuck-erino    ": [
+        "I'm a cutie pie",
         "Rush",
-        "Imaqtpie",
         "Doublelift",
         "Kaceytron"
       ]
     },
     {
-      "What Korean team was first to win a World Championship?": [
+      "What Korean team was first to win a World Championship?    ": [
         "SK Telecom T1 K",
         "SK Telecom T1",
         "Samsung White",
         "KT Arrows"
       ]
     }
+]
+
+var tvAndMusicQuestions = [
+  {
+    "Who wrote the hit Spanish song Bailando?   ":[
+      "Enrique Iglesias",
+      "Adrian Tran",
+      "Nicky Jam",
+      "Ruifeng quote unquote Ruifeng the Zhang Zhang",
+    ]
+  },
+  {
+    "What symphony's last movement includes a setting of Schiller's poem Hymn to Joy": [
+      "Beethoven's Ninth",
+      "Bruckner's Eighth",
+      "Mahler's Tenth",
+      "Mozart's 40th"
+    ]
+  },
+  {
+    "Which of the following is not a song made by the punk band Green day?    ":[
+      "Stop and Stare",
+      "Wake Me Up When September Ends",
+      "21 Guns",
+      "American Idiot"
+    ]
+  },
+  {
+    "Who composed the musical score for the animated movie Spirited Away?   ": [
+      "Joe Hisaishi",
+      "Hayao Miyazaki",
+      "Hans Zimmerman",
+      "Contigo Bailando"
+    ]
+  },
+  {
+    "Raffi is known for writing and singing what?   ":  [
+      "New Age Music",
+      "Children's songs",
+      "Rap music",
+      "Love ballads"
+    ]
+  }
+]
+
+var historyQuestions = [
+  {
+    "A 1998 study suggests that which of the following explorers reached the North Pole?    ": [
+      "Robert E. Peary",
+      "Ronald Amundsen",
+      "William Barents",
+      "Adam Sound",
+    ]
+  },
+  {
+    "History students are taught about the quote unquote fall of Constantiople in 1453. To who did it fall?   ": [
+      "Ottoman Turks",
+      "Christian crusaders",
+      "Mongol hordes",
+      "Romans",
+    ]
+  },
+  {
+    "Catherine the Great ruled what country?    ": [
+      "Russia",
+      "England",
+      "France",
+      "Germany"
+    ]
+  },
+  {
+    "What was the next state after the original 13 to be admitted to the United States?  ": [
+      "Vermont",
+      "Florida",
+      "West Virginia",
+      "Kentucky",
+    ]
+  },
+  {
+    "Which of these four wise men died before the other three were born?    ": [
+      "Solomon",
+      "Confucius",
+      "Plato",
+      "Jesus",
+    ]
+  }
 ]
 
 // Route the incoming request based on type (LaunchRequest, IntentRequest,
@@ -167,11 +438,11 @@ function onSessionStarted(sessionStartedRequest, session) {
 /**
  * Called when the user invokes the skill without specifying what they want.
  */
+
 function onLaunch(launchRequest, session, callback) {
     console.log("onLaunch requestId=" + launchRequest.requestId
         + ", sessionId=" + session.sessionId);
-
-    getWelcomeResponse(callback);
+        getWelcomeResponse(callback);
 }
 
 /**
@@ -218,6 +489,17 @@ function onIntent(intentRequest, session, callback) {
     } else if ("TestIntent" === intentName) {
         handleTestIntent(intent, session, callback);
     }
+    else if ("ChangeSubjectIntent" === intentName)
+    { handleSubjectIntent(intent, session, callback);
+    }
+    else if ("StateSubjectIntent" === intentName)
+    {
+      handleStateSubjectIntent(intent, session, callback);
+    }
+    else if ("HelpIntent" == intentName)
+    {
+      mainMenuResponse(callback);
+    }
      else {
         throw "Invalid intent";
     }
@@ -238,13 +520,25 @@ function onSessionEnded(sessionEndedRequest, session) {
 
 var ANSWER_COUNT = 4;
 var GAME_LENGTH = 5;
-var CARD_TITLE = "Trivia"; // Be sure to change this for your skill.
+var CARD_TITLE = "Study Helper"; // Be sure to change this for your skill.
 var IS_DEFAULT = 1;
+var IS_SUBJECT = 0;
+
+
+function mainMenuResponse(callback) {
+  var sessionAttributes = {},
+  speechOutput = "Hello! This is a voice-centered study guide named Study Helper that we made for you. You have three options. You can either answer all current questions, answer all questions specific to a subject of your choosing, or answer five random questions. Please refer to the notepad for Sample Utterances for each case. ",
+  repromptText = "I can't believe I have to repeat that. I'm out of breath. Give me a second. " + speechOutput,
+  shouldEndSession = true;
+
+  callback(sessionAttributes, buildSpeechletResponse(CARD_TITLE, speechOutput, repromptText, shouldEndSession));
+
+}
 
 function getWelcomeResponse(callback) {
     var sessionAttributes = {},
         speechOutput = "I will ask you " + GAME_LENGTH.toString()
-            + " questions, try to get as many right as you can. Just say the number of the answer. Let's begin. ",
+            + "questions randomly selected from the question bank, try to get as many right as you can. Just say the number of the answer. Let's begin. ",
         shouldEndSession = false,
 
         gameQuestions = populateGameQuestions(),
@@ -278,7 +572,7 @@ function getWelcomeResponse(callback) {
 function populateGameQuestions() {
     var gameQuestions = [];
     var indexList = [];
-    var index = GAME_LENGTH;
+    var index = questions.length;
 
     if (GAME_LENGTH > index){
         throw "Invalid Game Length.";
@@ -364,12 +658,66 @@ function populateRoundAnswers(gameQuestionIndexes, correctAnswerIndex, correctAn
     return answers;
 }
 
+function handleStateSubjectIntent(intent, session, callback)
+{
+  var speechOutput = "The current subjects available are: League Memes, History, Food, and entertainment. Ask me to quiz you on any of those subjects to begin.";
+  var shouldEndSession = false;
+  var repromptText = "Seriously man. My throat is getting sore and I'm getting bored. The three categories available are: League Memes, History, and Food.";
+
+  callback(session.attributes, buildSpeechletResponse(CARD_TITLE, speechOutput, repromptText, shouldEndSession));
+}
+
+function handleSubjectIntent(intent, session, callback)
+{
+  console.log(intent.slots.Subject.value);
+  IS_SUBJECT = 1;
+   if ((intent.slots.Subject.value) == "league memes")
+   {
+     questions = leagueQuestions;
+     handleTestIntent(intent, session, callback)
+   }
+   else if (intent.slots.Subject.value == "history")
+   {
+     questions = historyQuestions;
+     handleTestIntent(intent, session, callback)
+   }
+   else if (intent.slots.Subject.value == "food")
+   {
+     questions = foodQuestions;
+     handleTestIntent(intent, session, callback);
+   }
+   else if ((intent.slots.Subject.value) == ("entertainment"))
+   {
+     questions = tvAndMusicQuestions;
+     handleTestIntent(intent, session, callback);
+   }
+   else
+   {
+     var shouldEndSession = true;
+     var speechOutput = "Seriously dude. I can't believe the amount of foolishness that you have, thinking that I'm gonna quiz you on a subject that I don't even know. Hahahahehehehahahteeehhehe";
+     callback(session.attributes, buildSpeechletResponse(speechOutput, speechOutput, shouldEndSession));
+      throw "No Subject Error"
+   }
+
+}
+
 function handleTestIntent(intent, session, callback)
 {
-  var sessionAttributes = {},
-      speechOutput = "I am going to ask you all questions currently in the question bank, which is " + questions.length
-          + " questions. Try to get as many right as you can. Just say the number of the answer. Let's begin. ",
-      shouldEndSession = false,
+
+
+  var sessionAttributes = {};
+  if (IS_SUBJECT)
+  {
+    console.log(intent.slots.Subject.value);
+    var subject = intent.slots.Subject.value;
+      var speechOutput = "I am going to ask you all of the questions currently in my question bank specific to your subject, " + subject + ". " + "There are " + questions.length
+          + " questions. Try to get as many right as you can. Just say the number of the answer. Let's begin. ";
+        }
+        else {
+            var speechOutput = "I am going to ask you all of the questions currently in my question bank, which is " + questions.length
+              + " questions. Try to get as many right as you can. Just say the number of the answer. Let's begin. ";
+        }
+      var shouldEndSession = false,
 
       gameQuestions = populateGameQuestionsTest(),
       correctAnswerIndex = Math.floor(Math.random() * (ANSWER_COUNT)), // Generate a random index for the correct answer, from 0 to 3
@@ -410,7 +758,7 @@ function handleAnswerRequest(intent, session, callback) {
         // If the user responded with an answer but there is no game in progress, ask the user
         // if they want to start a new game. Set a flag to track that we've prompted the user.
         sessionAttributes.userPromptedToContinue = true;
-        speechOutput = "There is no game in progress. Do you want to start a new game? ";
+        speechOutput = "There is no game in progress. Do you want to start a new random game? ";
         callback(sessionAttributes,
             buildSpeechletResponse(CARD_TITLE, speechOutput, speechOutput, false));
     } else if (!answerSlotValid && !userGaveUp) {
@@ -429,12 +777,15 @@ function handleAnswerRequest(intent, session, callback) {
 
         var speechOutputAnalysis = "";
 
+            var randCorrect = Math.floor(Math.random() * correctAppending.length);
+            var randIncorrect = Math.floor(Math.random() * incorrectAppending.length);
+
         if (answerSlotValid && parseInt(intent.slots.Answer.value) == correctAnswerIndex) {
             currentScore++;
-            speechOutputAnalysis = "correct. ";
+            speechOutputAnalysis = "correct. " + correctAppending[randCorrect];
         } else {
             if (!userGaveUp) {
-                speechOutputAnalysis = "wrong. "
+                speechOutputAnalysis = "wrong. " + incorrectAppending[randIncorrect];
             }
             speechOutputAnalysis += "The correct answer is " + correctAnswerIndex + ": " + correctAnswerText + ". ";
         }
@@ -444,11 +795,11 @@ function handleAnswerRequest(intent, session, callback) {
             if (IS_DEFAULT && currentQuestionIndex == GAME_LENGTH -1)
             {
             speechOutput += speechOutputAnalysis + "You got " + currentScore.toString() + " out of "
-                + GAME_LENGTH.toString() + " questions correct. Thank you for playing!";
+                + GAME_LENGTH.toString() + " questions correct, which is a " + ((currentScore/GAME_LENGTH)*100) + " percent. Thank you for playing!";
             }
             else {
               speechOutput += speechOutputAnalysis + "You got " + currentScore.toString() + " out of "
-                  + questions.length.toString() + " questions correct. Thank you for playing!";
+                  + questions.length.toString() + " questions correct, which is a " + ((currentScore/questions.length)*100) + " percent. Thank you for playing!  " + "Boing boing blung blach bung I haven't slept in many hours boing";
             }
             callback(session.attributes,
                 buildSpeechletResponse(CARD_TITLE, speechOutput, "", true));
@@ -465,7 +816,7 @@ function handleAnswerRequest(intent, session, callback) {
                 repromptText += (i+1).toString() + ". " + roundAnswers[i] + ". "
             }
             speechOutput += userGaveUp ? "" : "That answer is ";
-            speechOutput += speechOutputAnalysis + "Your score is " + currentScore.toString() + ". " + repromptText;
+            speechOutput += speechOutputAnalysis + "       Your score is currently " + currentScore.toString() + " out of " + currentQuestionIndex.toString() + ".       " + repromptText;
 
             sessionAttributes = {
                 "speechOutput": repromptText,
