@@ -1,5 +1,7 @@
 # CitrusHack2016
 
+![image](https://user-images.githubusercontent.com/14877762/55057723-37b3fd00-5027-11e9-9864-65e3d2f4104a.png)
+
 PROJECT TITLE: Trivia Game
 
 Trivia Game is a studying game coded by Adrian Tran and Braeton Buckley for
